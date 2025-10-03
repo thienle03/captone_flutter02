@@ -63,24 +63,24 @@ class _JobsScreenState extends State<JobsScreen> {
             count: 0,
             imageUrl: ""),
       );
-      final jobName = (g.job["tenCongViec"] ?? "Công việc").toString();
+      final jobName = (g.job["tenCongViec"] ?? "job").toString();
 
       await NotificationService.add(
         type: "done",
-        title: "Đã hoàn thành công việc",
+        title: "The work has been completed.",
         body: jobName,
       );
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("✅ Đã hoàn thành 1 lần thuê")),
+        const SnackBar(content: Text("✅ The work has been completed.")),
       );
       await _fetchMyHires();
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("❌ Lỗi: $e")));
+      ).showSnackBar(SnackBar(content: Text("❌ Error: $e")));
     }
   }
 
@@ -91,14 +91,14 @@ class _JobsScreenState extends State<JobsScreen> {
       }
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("🗑️ Đã xóa nhóm công việc")),
+        const SnackBar(content: Text("🗑️ The job group has been deleted.")),
       );
       await _fetchMyHires();
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("❌ Lỗi: $e")));
+      ).showSnackBar(SnackBar(content: Text("❌ Error: $e")));
     }
   }
 
@@ -111,11 +111,11 @@ class _JobsScreenState extends State<JobsScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("Lỗi: $_error"),
+                    Text("Error: $_error"),
                     const SizedBox(height: 8),
                     ElevatedButton(
                       onPressed: _fetchMyHires,
-                      child: const Text("Thử lại"),
+                      child: const Text("Try again."),
                     ),
                   ],
                 ),
@@ -125,14 +125,14 @@ class _JobsScreenState extends State<JobsScreen> {
                 child: ListView(
                   children: [
                     SectionTitle(
-                      title: "Đang làm",
+                      title: "Currently working.",
                       count: _inProgress.fold(0, (s, e) => s + e.count),
                     ),
                     if (_inProgress.isEmpty)
                       const Padding(
                         padding: EdgeInsets.all(12),
                         child: Text(
-                          "Không có công việc đang làm",
+                          "No ongoing jobs",
                           style: TextStyle(color: Colors.black54),
                         ),
                       )
@@ -146,14 +146,14 @@ class _JobsScreenState extends State<JobsScreen> {
                         ),
                       ),
                     SectionTitle(
-                      title: "Đã hoàn thành",
+                      title: "The work has been completed.",
                       count: _completed.fold(0, (s, e) => s + e.count),
                     ),
                     if (_completed.isEmpty)
                       const Padding(
                         padding: EdgeInsets.all(12),
                         child: Text(
-                          "Chưa có công việc hoàn thành",
+                          "No completed jobs",
                           style: TextStyle(color: Colors.black54),
                         ),
                       )
@@ -165,15 +165,15 @@ class _JobsScreenState extends State<JobsScreen> {
                             final ok = await showDialog<bool>(
                               context: context,
                               builder: (_) => AlertDialog(
-                                title: const Text("Xóa nhóm công việc"),
+                                title: const Text("Delete job group"),
                                 content: Text(
-                                  "Xóa tất cả ${g.count} lần thuê của công việc này?",
+                                  "Delete all ${g.count} hires for this job?",
                                 ),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
                                         Navigator.pop(context, false),
-                                    child: const Text("Hủy"),
+                                    child: const Text("Cancel"),
                                   ),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -181,7 +181,7 @@ class _JobsScreenState extends State<JobsScreen> {
                                     ),
                                     onPressed: () =>
                                         Navigator.pop(context, true),
-                                    child: const Text("Xóa"),
+                                    child: const Text("Delete"),
                                   ),
                                 ],
                               ),
@@ -199,14 +199,12 @@ class _JobsScreenState extends State<JobsScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(
-          "Thuê công việc của tôi",
+          "My Job Hires",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          // 👈 đổi màu cho nổi
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(
-            color: Colors.black), // 👈 nút back/menu cũng đổi màu
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -219,7 +217,7 @@ class _JobsScreenState extends State<JobsScreen> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: SafeArea(child: body), // 👈 tránh title dính vào notch
+        child: SafeArea(child: body),
       ),
     );
   }

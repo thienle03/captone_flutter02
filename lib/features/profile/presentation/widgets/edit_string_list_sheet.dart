@@ -35,7 +35,6 @@ class _EditStringListSheetState extends State<EditStringListSheet> {
         bottom: MediaQuery.of(context).viewInsets.bottom + 16,
       ),
       child: SingleChildScrollView(
-        // 👈 bọc Column trong scroll
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -48,7 +47,7 @@ class _EditStringListSheetState extends State<EditStringListSheet> {
               controller: ctl,
               maxLines: 6,
               decoration: const InputDecoration(
-                hintText: "Mỗi dòng là một mục",
+                hintText: "Each line is an item",
                 border: OutlineInputBorder(),
               ),
             ),

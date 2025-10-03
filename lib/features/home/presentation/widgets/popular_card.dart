@@ -21,7 +21,7 @@ class PopularCard extends StatelessWidget {
         width: 115,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.white, // 👈 nền trắng
+          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(

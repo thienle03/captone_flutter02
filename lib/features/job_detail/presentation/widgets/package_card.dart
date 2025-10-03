@@ -47,11 +47,10 @@ class JobPackageCard extends StatelessWidget {
                 onTap: () {
                   showDialog(
                     context: context,
-                    builder:
-                        (_) => AlertDialog(
-                          title: const Text("Mô tả chi tiết"),
-                          content: SingleChildScrollView(child: Text(fullDesc)),
-                        ),
+                    builder: (_) => AlertDialog(
+                      title: const Text("Detailed description"),
+                      content: SingleChildScrollView(child: Text(fullDesc)),
+                    ),
                   );
                 },
                 child: const Text(
@@ -97,36 +96,35 @@ class JobPackageCard extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:
-                  features.map((line) {
-                    String textLine = line.trim();
-                    Widget item;
-                    if (textLine.toLowerCase().contains("day")) {
-                      item = Text(
-                        "Delivery Days: $textLine",
-                        style: const TextStyle(fontSize: 14),
-                      );
-                    } else if (textLine.toLowerCase().contains("revision")) {
-                      item = Text(
-                        "Revisions: $textLine",
-                        style: const TextStyle(fontSize: 14),
-                      );
-                    } else if (textLine.toLowerCase().contains("concept")) {
-                      item = Text(
-                        "Number of concepts included: $textLine",
-                        style: const TextStyle(fontSize: 14),
-                      );
-                    } else {
-                      item = Text(
-                        textLine,
-                        style: const TextStyle(fontSize: 14),
-                      );
-                    }
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 18.0),
-                      child: item,
-                    );
-                  }).toList(),
+              children: features.map((line) {
+                String textLine = line.trim();
+                Widget item;
+                if (textLine.toLowerCase().contains("day")) {
+                  item = Text(
+                    "Delivery Days: $textLine",
+                    style: const TextStyle(fontSize: 14),
+                  );
+                } else if (textLine.toLowerCase().contains("revision")) {
+                  item = Text(
+                    "Revisions: $textLine",
+                    style: const TextStyle(fontSize: 14),
+                  );
+                } else if (textLine.toLowerCase().contains("concept")) {
+                  item = Text(
+                    "Number of concepts included: $textLine",
+                    style: const TextStyle(fontSize: 14),
+                  );
+                } else {
+                  item = Text(
+                    textLine,
+                    style: const TextStyle(fontSize: 14),
+                  );
+                }
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 18.0),
+                  child: item,
+                );
+              }).toList(),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
@@ -138,23 +136,22 @@ class JobPackageCard extends StatelessWidget {
                 ),
               ),
               onPressed: hiring ? null : onHire,
-              child:
-                  hiring
-                      ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
-                      : Text(
-                        "Continue (\$${jobDetail?['giaTien'] ?? 0})",
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+              child: hiring
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
                       ),
+                    )
+                  : Text(
+                      "Continue (\$${jobDetail?['giaTien'] ?? 0})",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           ],
         ),

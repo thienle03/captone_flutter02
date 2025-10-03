@@ -4,8 +4,8 @@ class ProfileHeader extends StatelessWidget {
   final String name;
   final String email;
   final VoidCallback onEdit;
-  final String? avatarUrl; // nút bút (mô tả)
-  final VoidCallback? onEditAvatar; // 👈 đổi avatar
+  final String? avatarUrl;
+  final VoidCallback? onEditAvatar;
   final bool uploadingAvatar;
 
   const ProfileHeader({
@@ -40,22 +40,21 @@ class ProfileHeader extends StatelessWidget {
                     (avatarUrl != null && avatarUrl!.startsWith('http'))
                         ? NetworkImage(avatarUrl!)
                         : null,
-                child:
-                    (avatarUrl == null || !avatarUrl!.startsWith('http'))
-                        ? Text(
-                          displayName.isNotEmpty
-                              ? displayName[0].toUpperCase()
-                              : 'U',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.deepPurple,
-                          ),
-                        )
-                        : null,
+                child: (avatarUrl == null || !avatarUrl!.startsWith('http'))
+                    ? Text(
+                        displayName.isNotEmpty
+                            ? displayName[0].toUpperCase()
+                            : 'U',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.deepPurple,
+                        ),
+                      )
+                    : null,
               ),
 
-              // nút camera nổi
+              // nút edit avatar
               Positioned(
                 right: -4,
                 bottom: -4,
@@ -76,13 +75,12 @@ class ProfileHeader extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child:
-                        uploadingAvatar
-                            ? const Padding(
-                              padding: EdgeInsets.all(6),
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                            : const Icon(Icons.photo_camera_outlined, size: 16),
+                    child: uploadingAvatar
+                        ? const Padding(
+                            padding: EdgeInsets.all(6),
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.photo_camera_outlined, size: 16),
                   ),
                 ),
               ),

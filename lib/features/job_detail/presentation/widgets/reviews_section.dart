@@ -14,7 +14,7 @@ class CommentsPreview extends StatelessWidget {
           children: [
             const Icon(Icons.star, color: Colors.amber),
             const SizedBox(width: 4),
-            // Sao trung bình sẽ truyền từ ngoài vào nếu cần — ở đây chỉ hiển thị số review
+            // Sao trung bình sẽ truyền từ ngoài vào nếu cần hiển thị
             Text(
               "${comments.length} reviews",
               style: const TextStyle(color: Colors.grey),
@@ -27,45 +27,42 @@ class CommentsPreview extends StatelessWidget {
         const SizedBox(height: 8),
         comments.isEmpty
             ? const Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Chưa có bình luận"),
-            )
+                alignment: Alignment.centerLeft,
+                child: Text("Chưa có bình luận"),
+              )
             : Column(
-              children:
-                  comments.take(3).map((c) {
-                    return Card(
-                      margin: const EdgeInsets.symmetric(vertical: 6),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              (c['avatar'] != null &&
-                                      c['avatar'].toString().isNotEmpty)
-                                  ? NetworkImage(c['avatar'])
-                                  : const AssetImage(
-                                        "assets/default_avatar.png",
-                                      )
-                                      as ImageProvider,
-                        ),
-                        title: Text(
-                          c['tenNguoiBinhLuan']?.toString() ?? "Ẩn danh",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(c['noiDung']?.toString() ?? ""),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 16,
-                            ),
-                            Text("${c['saoBinhLuan'] ?? 0}"),
-                          ],
-                        ),
+                children: comments.take(3).map((c) {
+                  return Card(
+                    margin: const EdgeInsets.symmetric(vertical: 6),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: (c['avatar'] != null &&
+                                c['avatar'].toString().isNotEmpty)
+                            ? NetworkImage(c['avatar'])
+                            : const AssetImage(
+                                "assets/default_avatar.png",
+                              ) as ImageProvider,
                       ),
-                    );
-                  }).toList(),
-            ),
+                      title: Text(
+                        c['tenNguoiBinhLuan']?.toString() ?? "Ẩn danh",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(c['noiDung']?.toString() ?? ""),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 16,
+                          ),
+                          Text("${c['saoBinhLuan'] ?? 0}"),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
       ],
     );
   }

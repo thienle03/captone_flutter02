@@ -50,8 +50,6 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: pages),
-
-      // gọi widget điều hướng tách riêng
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FancySearchFab(
         selected: _selectedIndex == 2,

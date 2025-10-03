@@ -18,7 +18,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final _phone = TextEditingController();
   final _birthday = TextEditingController();
 
-  bool _gender = true; // true = Male
+  bool _gender = true;
   bool _obscure = true;
   bool _isLoading = false;
 
@@ -62,12 +62,12 @@ class _SignUpFormState extends State<SignUpForm> {
 
     if (res.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Đăng ký thành công")),
+        const SnackBar(content: Text("Sign up successful")),
       );
       Navigator.pushReplacementNamed(context, '/login');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Đăng ký thất bại: ${res.body}")),
+        SnackBar(content: Text("Sign up failed: ${res.body}")),
       );
     }
   }
@@ -93,7 +93,7 @@ class _SignUpFormState extends State<SignUpForm> {
             controller: _name,
             decoration: _filledInput(label: "Name", icon: Icons.person_outline),
             validator: (v) =>
-                (v == null || v.trim().isEmpty) ? "Nhập tên" : null,
+                (v == null || v.trim().isEmpty) ? "Input name" : null,
           ),
           const SizedBox(height: 12),
 
@@ -104,7 +104,7 @@ class _SignUpFormState extends State<SignUpForm> {
             decoration: _filledInput(label: "Email", icon: Icons.mail_outlined),
             validator: (v) =>
                 (v == null || !RegExp(r'^\S+@\S+\.\S+$').hasMatch(v))
-                    ? "Email không hợp lệ"
+                    ? "Invalid email"
                     : null,
           ),
           const SizedBox(height: 12),
@@ -121,8 +121,9 @@ class _SignUpFormState extends State<SignUpForm> {
                 icon: Icon(_obscure ? Icons.visibility : Icons.visibility_off),
               ),
             ),
-            validator: (v) =>
-                (v == null || v.length < 6) ? "Mật khẩu >= 6 ký tự" : null,
+            validator: (v) => (v == null || v.length < 6)
+                ? "Password must be at least 6 characters"
+                : null,
           ),
           const SizedBox(height: 12),
 
@@ -133,7 +134,7 @@ class _SignUpFormState extends State<SignUpForm> {
             decoration:
                 _filledInput(label: "Phone", icon: Icons.phone_outlined),
             validator: (v) =>
-                (v == null || v.trim().isEmpty) ? "Nhập số điện thoại" : null,
+                (v == null || v.trim().isEmpty) ? "Input phone number" : null,
           ),
           const SizedBox(height: 12),
 
@@ -147,7 +148,7 @@ class _SignUpFormState extends State<SignUpForm> {
               icon: Icons.cake_outlined,
             ),
             validator: (v) =>
-                (v == null || v.isEmpty) ? "Chọn ngày sinh" : null,
+                (v == null || v.isEmpty) ? "Input birthday" : null,
           ),
           const SizedBox(height: 12),
 
@@ -187,10 +188,9 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
           const SizedBox(height: 10),
 
-          // Switch to Login
           TextButton(
             onPressed: () => Navigator.pushReplacementNamed(context, '/login'),
-            child: const Text("Đã có tài khoản? Đăng nhập"),
+            child: const Text("Already have an account? Log in"),
           ),
         ],
       ),

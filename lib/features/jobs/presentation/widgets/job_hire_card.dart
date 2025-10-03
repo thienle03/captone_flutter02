@@ -39,7 +39,6 @@ class JobHireCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // HÀNG TRÊN: Ảnh + tên
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -89,15 +88,14 @@ class JobHireCard extends StatelessWidget {
 
               const SizedBox(height: 8),
 
-              // Giá + số lần thuê
+              // Giá ,số lần thuê
               Text(
-                "Giá: \$${job["giaTien"] ?? 0} • x$count lần",
+                "Price: \$${job["giaTien"] ?? 0} • x$count times",
                 style: const TextStyle(color: Colors.black54),
               ),
 
               const SizedBox(height: 12),
 
-              // HÀNG DƯỚI: Các nút
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -114,7 +112,7 @@ class JobHireCard extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Text("Thuê lại"),
+                      child: const Text("Rehire"),
                     ),
                     const SizedBox(width: 8),
                     ElevatedButton(
@@ -122,7 +120,7 @@ class JobHireCard extends StatelessWidget {
                         backgroundColor: Colors.red,
                       ),
                       onPressed: onDeleteGroup,
-                      child: const Text("Xóa"),
+                      child: const Text("Delete"),
                     ),
                   ] else ...[
                     ElevatedButton(
@@ -130,7 +128,7 @@ class JobHireCard extends StatelessWidget {
                         backgroundColor: Colors.green,
                       ),
                       onPressed: onCompleteOne,
-                      child: const Text("Hoàn thành"),
+                      child: const Text("Complete."),
                     ),
                   ],
                 ],

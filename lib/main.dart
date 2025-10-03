@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Token App',
+      title: 'Fiverr App',
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/', // Splash sẽ chạy trước
+      initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),
         '/login': (context) => LoginScreen(),

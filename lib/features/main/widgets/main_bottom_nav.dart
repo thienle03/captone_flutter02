@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// ===== FAB Search =====
+/// FAB Search
 class FancySearchFab extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
@@ -18,7 +18,7 @@ class FancySearchFab extends StatelessWidget {
       curve: Curves.easeOutBack,
       builder: (_, scale, __) {
         return Transform.translate(
-          offset: const Offset(0, 4), // 👈 hạ thấp xuống cho khớp nav bar
+          offset: const Offset(0, 4),
           child: Transform.scale(
             scale: scale,
             child: Container(
@@ -51,7 +51,7 @@ class FancySearchFab extends StatelessWidget {
   }
 }
 
-/// ===== BottomAppBar bo góc + notch =====
+/// BottomAppBar
 class FancyBottomBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
@@ -100,7 +100,7 @@ class FancyBottomBar extends StatelessWidget {
               current: currentIndex,
               onTap: onTap,
             ),
-            const SizedBox(width: 48), // chừa chỗ cho FAB
+            const SizedBox(width: 48),
             _NavItem(
               icon: Icons.list_alt,
               label: "Products",
@@ -122,7 +122,7 @@ class FancyBottomBar extends StatelessWidget {
   }
 }
 
-/// ===== Item =====
+/// Item in BottomAppBar
 class _NavItem extends StatelessWidget {
   final IconData icon;
   final String label;

@@ -152,7 +152,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // chạm ra ngoài để ẩn bàn phím
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -162,7 +161,7 @@ class _SearchPageState extends State<SearchPage> {
             controller: _controller,
             autofocus: widget.initialKeyword.isEmpty, // chỉ auto nếu trống
             decoration: const InputDecoration(
-              hintText: "Tìm công việc...",
+              hintText: " Search job...",
               border: InputBorder.none,
             ),
             onChanged: (_) => _onSearchChanged(),
@@ -180,7 +179,6 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ),
         body: Container(
-          // 🌈 nền gradient
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -195,16 +193,13 @@ class _SearchPageState extends State<SearchPage> {
             child: AnimatedPadding(
               duration: const Duration(milliseconds: 150),
               padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context)
-                    .viewInsets
-                    .bottom, // chừa chỗ bàn phím
+                bottom: MediaQuery.of(context).viewInsets.bottom,
               ),
               child: CustomScrollView(
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
                 physics: const AlwaysScrollableScrollPhysics(),
                 slivers: [
-                  // ===== TAG GỢI Ý =====
                   if (_suggestTags.isNotEmpty)
                     SliverToBoxAdapter(
                       child: Padding(
@@ -232,8 +227,6 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       ),
                     ),
-
-                  // ===== FILTER PILL =====
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
@@ -270,8 +263,6 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   const SliverToBoxAdapter(child: Divider(height: 1)),
-
-                  // ===== NỘI DUNG KẾT QUẢ =====
                   if (_isLoading)
                     const SliverFillRemaining(
                       hasScrollBody: false,
@@ -342,7 +333,6 @@ class _SearchPageState extends State<SearchPage> {
       showDragHandle: true,
       builder: (ctx) {
         return Padding(
-          // 👇 chừa chỗ cho bàn phím nếu có ô lọc nào trong sheet
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(ctx).viewInsets.bottom,
           ),
@@ -433,12 +423,12 @@ class _EmptyView extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           const Text(
-            "Không tìm thấy kết quả",
+            "No results found.",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
           const SizedBox(height: 8),
           const Text(
-            "Hãy thử từ khóa khác hoặc khám phá danh mục",
+            "Try a different keyword or explore categories",
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.grey),
           ),

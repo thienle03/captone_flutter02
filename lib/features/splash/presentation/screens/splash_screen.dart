@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-// Nếu dùng SVG thì mở comment dòng dưới
-// import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -68,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
                   child: Image.asset(
-                    'assets/image_app.png', // ✅ đúng đường dẫn
+                    'assets/image_app.png',
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -9,7 +9,7 @@ import 'package:fiverr/config.dart';
 import 'package:fiverr/services/api_service.dart';
 
 class ProfileService {
-  // ========== USER ==========
+  // userId ưu tiên từ tham số, nếu null thì lấy từ prefs
   static Future<int?> getUserId([int? fromWidget]) async {
     if (fromWidget != null) return fromWidget;
     final prefs = await SharedPreferences.getInstance();
@@ -48,7 +48,6 @@ class ProfileService {
 
     final url = Uri.parse("$API_BASE_URL/api/users/$uid");
 
-    // ✅ thêm log debug
     print("👉 Sending updateUser request:");
     print("URL: $url");
     print("Body: ${jsonEncode(full)}");
@@ -65,7 +64,7 @@ class ProfileService {
     return res.statusCode >= 200 && res.statusCode < 300;
   }
 
-  // ========== AVATAR ==========
+  // avatar upload trả về URL ảnh
   static Future<String?> uploadAvatar(File file) async {
     final prefs = await SharedPreferences.getInstance();
     final jwt = prefs.getString('jwt') ?? '';
@@ -90,18 +89,16 @@ class ProfileService {
     final res = await http.Response.fromStream(streamed);
 
     if (res.statusCode >= 200 && res.statusCode < 300) {
-      return res.body; // hoặc parse JSON { "content": "url" }
+      return res.body;
     } else {
       throw Exception("Upload failed: ${res.statusCode} ${res.body}");
     }
   }
 
-  // ========== SKILL ==========
-  // lib/features/profile/data/profile_service.dart
+  // Lấy danh sách kỹ năng
   static Future<List<String>> fetchSkills() async {
     final uri = Uri.parse("$API_BASE_URL/api/skill");
-    final headers =
-        await ApiService.defaultHeaders(json: false); // GET: ko set CT
+    final headers = await ApiService.defaultHeaders(json: false);
     final res = await http.get(uri, headers: headers);
     if (res.statusCode < 200 || res.statusCode >= 300) {
       throw Exception("HTTP ${res.statusCode}: ${res.body}");

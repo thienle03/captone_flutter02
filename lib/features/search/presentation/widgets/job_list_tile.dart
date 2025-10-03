@@ -7,7 +7,7 @@ class JobListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = (job["tenCongViec"] ?? "Không có tiêu đề").toString();
+    final title = (job["tenCongViec"] ?? "No title").toString();
     final img = (job["hinhAnh"] ?? "").toString();
     final rating = (job["saoCongViec"] ?? "-").toString();
     final price = (job["giaTien"] ?? "-").toString();
@@ -35,13 +35,12 @@ class JobListTile extends StatelessWidget {
               SizedBox(
                 width: 96,
                 height: 96,
-                child:
-                    img.isEmpty
-                        ? Container(
-                          color: const Color(0xFFEFEFEF),
-                          child: const Icon(Icons.image_not_supported),
-                        )
-                        : Image.network(img, fit: BoxFit.cover),
+                child: img.isEmpty
+                    ? Container(
+                        color: const Color(0xFFEFEFEF),
+                        child: const Icon(Icons.image_not_supported),
+                      )
+                    : Image.network(img, fit: BoxFit.cover),
               ),
               const SizedBox(width: 12),
               Expanded(

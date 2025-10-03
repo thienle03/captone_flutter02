@@ -12,7 +12,6 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: null,
       body: Container(
-        // ✅ Gradient phủ full màn hình
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -30,7 +29,6 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // ===== Logo tròn =====
                 Container(
                   height: 88,
                   width: 88,
@@ -50,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                // ===== Tiêu đề =====
+                //Tiêu đề
                 const Text(
                   'Login',
                   textAlign: TextAlign.center,
@@ -62,7 +60,6 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
 
-                // ===== Thẻ glass bọc form =====
                 _GlassCard(
                   child: const LoginForm(),
                 ),

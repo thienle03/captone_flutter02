@@ -55,7 +55,7 @@ class _HomeTabState extends State<HomePage> {
     super.dispose();
   }
 
-  // Search handlers
+  // Search logic
   Future<void> _searchJobs(String keyword) async {
     if (!mounted) return;
     if (keyword.trim().isEmpty) {
@@ -106,7 +106,6 @@ class _HomeTabState extends State<HomePage> {
           final cv = jobWrap["congViec"] as Map<String, dynamic>? ?? {};
           final raw = (cv["hinhAnh"] ?? "").toString();
 
-          // ảnh cuối cùng dùng để hiển thị
           final finalImg = (raw.startsWith("http") && raw.isNotEmpty)
               ? raw
               : _randomImageFor(k.label, w: 240, h: 160);
@@ -128,7 +127,7 @@ class _HomeTabState extends State<HomePage> {
                 k.label,
                 w: 240,
                 h: 160,
-              ), // 🔁 fallback random
+              ),
               jobWrap: null,
             ),
           );
@@ -207,7 +206,6 @@ class _HomeTabState extends State<HomePage> {
         ],
       ),
       body: Container(
-        // ✅ Gradient giống login/signup
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -234,8 +232,8 @@ class _HomeTabState extends State<HomePage> {
                     padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
                     child: SearchField(
                       controller: _searchController,
-                      autoFocus: false, // 👈 phòng hờ
-                      onChanged: null, // không cần debounce ở đây
+                      autoFocus: false,
+                      onChanged: null,
                       onSubmitted: null,
                     ),
                   ),
@@ -298,7 +296,7 @@ class _HomeTabState extends State<HomePage> {
                   ),
                 ),
 
-                // Explore / Results
+                // Explore
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -324,7 +322,7 @@ class _HomeTabState extends State<HomePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Ảnh random đẹp + bo góc + shadow
+                        // Ảnh random từ picsum
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
@@ -431,10 +429,10 @@ class _HomeTabState extends State<HomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Tìm công việc"),
+          title: const Text("Search a job."),
           content: SearchField(
             controller: _searchController,
-            hintText: "Nhập từ khoá…",
+            hintText: "Input the keyword.…",
             autoFocus: false,
             onChanged: (_) => _onSearchChanged(),
             onSubmitted: (v) {
@@ -445,7 +443,7 @@ class _HomeTabState extends State<HomePage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("Đóng"),
+              child: const Text("Close"),
             ),
           ],
         );

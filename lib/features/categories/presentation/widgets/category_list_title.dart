@@ -25,18 +25,17 @@ class CategoryListTile extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder:
-                (_) => CategoryGroupDetailPage(
-                  tenLoaiCongViec: title,
-                  dsNhomChiTietLoai: dsNhom,
-                ),
+            builder: (_) => CategoryGroupDetailPage(
+              tenLoaiCongViec: title,
+              dsNhomChiTietLoai: dsNhom,
+            ),
           ),
         );
       },
     );
   }
 
-  // ghép 2–3 tên nhóm/chi tiết làm mô tả
+  // chi tiết làm mô tả
   String _previewSubTitles(List<dynamic> dsNhom) {
     final tags = <String>[];
     for (final nhom in dsNhom.take(2)) {
@@ -51,7 +50,7 @@ class CategoryListTile extends StatelessWidget {
     return tags.isEmpty ? " " : tags.join(", ");
   }
 
-  // icon minh hoạ từng dòng (theo index)
+  // icon minh hoạ từng dòng
   Widget _leadingIcon(int i) {
     const icons = [
       Icons.brush,

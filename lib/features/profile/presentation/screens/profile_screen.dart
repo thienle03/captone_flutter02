@@ -54,11 +54,10 @@ class _ProfilePageState extends State<ProfilePage> {
           clipBehavior: Clip.none,
           children: [
             IconButton(
-              tooltip: "Thông báo",
+              tooltip: "Notifications",
               icon: const Icon(Icons.notifications_none),
               onPressed: () async {
                 await Navigator.pushNamed(context, '/notifications');
-                // Refresh lại khi quay về
                 await NotificationService.refreshUnread();
               },
             ),
@@ -94,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (_uid == null) {
       setState(() {
         _loading = false;
-        _error = "Chưa đăng nhập (không có userId).";
+        _error = "UserId not found.";
       });
       return;
     }
@@ -106,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _pickAndUploadAvatar() async {
     final picker = ImagePicker();
     final XFile? picked = await picker.pickImage(
-      source: ImageSource.gallery, // ✅ chỉ thư viện
+      source: ImageSource.gallery,
       imageQuality: 90,
       maxWidth: 1500,
     );
@@ -118,13 +117,13 @@ class _ProfilePageState extends State<ProfilePage> {
       await _fetchUser(); // reload profile để thấy avatar mới
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("✅ Cập nhật avatar thành công")),
+        const SnackBar(content: Text("✅ Avatar updated successfully.")),
       );
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("❌ Upload avatar thất bại: $e")));
+      ).showSnackBar(SnackBar(content: Text("❌ Upload avatar failed: $e")));
     } finally {
       if (mounted) setState(() => _uploadingAvatar = false);
     }
@@ -146,22 +145,22 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  // ====== LOGOUT ======
+  // LOGOUT
   Future<void> _logout() async {
     final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text("Đăng xuất"),
-        content: const Text("Bạn có chắc muốn đăng xuất khỏi ứng dụng?"),
+        title: const Text("Logout"),
+        content: const Text("Are you sure you want to logout?"),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text("Hủy"),
+            child: const Text("Cancel"),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text("Đăng xuất"),
+            child: const Text("Logout"),
           ),
         ],
       ),
@@ -170,18 +169,18 @@ class _ProfilePageState extends State<ProfilePage> {
     if (ok != true) return;
 
     final prefs = await SharedPreferences.getInstance();
-    // Xóa các key bạn đang dùng
+
     await prefs.remove("userId");
     await prefs.remove("email");
     await prefs.remove("name");
-    await prefs.remove("jwt"); // nếu có lưu JWT
+    await prefs.remove("jwt");
 
     if (!mounted) return;
     // Quay về màn login và xóa history
     Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text("Đã đăng xuất")));
+    ).showSnackBar(const SnackBar(content: Text("Logged out successfully.")));
   }
 
   void _openEditDescription() {
@@ -225,7 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("❌ Lỗi load skill: $e")),
+        SnackBar(content: Text("❌ Error loading skills: $e")),
       );
     }
   }
@@ -248,7 +247,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  // =================== UI ===================
   @override
   Widget build(BuildContext context) {
     final name = (_user["name"] ?? "Profile").toString();
@@ -272,7 +270,7 @@ class _ProfilePageState extends State<ProfilePage> {
           IconButton(icon: const Icon(Icons.refresh), onPressed: _fetchUser),
           IconButton(
             icon: const Icon(Icons.logout),
-            tooltip: "Đăng xuất",
+            tooltip: "Logout",
             onPressed: _logout,
           ),
         ],
@@ -293,7 +291,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: SafeArea(
                 // 👈 tránh tràn dưới status bar
                 child: _error != null
-                    ? Center(child: Text("Lỗi: $_error"))
+                    ? Center(child: Text("Error: $_error"))
                     : RefreshIndicator(
                         onRefresh: _fetchUser,
                         child: ListView(
@@ -342,7 +340,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               onPressed: _logout,
                               icon: const Icon(Icons.logout),
-                              label: const Text("Đăng xuất"),
+                              label: const Text("Logout"),
                             ),
                           ],
                         ),

@@ -28,7 +28,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
       _loading = false;
     });
 
-    // Vào trang là xem như đã đọc
+    // đánh dấu đã đọc hết
     await NotificationService.markAllRead();
   }
 
@@ -45,10 +45,10 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Thông báo"),
+        title: const Text("Notification"),
         actions: [
           IconButton(
-            tooltip: "Xoá tất cả",
+            tooltip: "Delete all",
             onPressed: _items.isEmpty ? null : _clearAll,
             icon: const Icon(Icons.delete_sweep),
           ),
@@ -69,7 +69,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
           child: _loading
               ? const Center(child: CircularProgressIndicator())
               : _items.isEmpty
-                  ? const Center(child: Text("Chưa có thông báo"))
+                  ? const Center(child: Text("No notifications"))
                   : RefreshIndicator(
                       onRefresh: _load,
                       child: ListView.separated(
@@ -106,11 +106,10 @@ class _NotificationsPageState extends State<NotificationsPage> {
                               if (!mounted) return;
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: const Text("Đã xoá 1 thông báo"),
+                                  content: const Text("Deleted 1 notification"),
                                   action: SnackBarAction(
-                                    label: "Hoàn tác",
+                                    label: "Undo",
                                     onPressed: () async {
-                                      // khôi phục
                                       await NotificationService.add(
                                         type: removed.type,
                                         title: removed.title,

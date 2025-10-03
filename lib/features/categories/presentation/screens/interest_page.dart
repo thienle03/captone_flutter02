@@ -55,7 +55,7 @@ class _InterestsPageState extends State<InterestsPage> {
           child: _loading
               ? const Center(child: CircularProgressIndicator())
               : _favs.isEmpty
-                  ? const Center(child: Text("Chưa có mục yêu thích"))
+                  ? const Center(child: Text("No favorites yet."))
                   : ListView.separated(
                       padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
                       itemBuilder: (_, i) => JobListTile(job: _favs[i]),

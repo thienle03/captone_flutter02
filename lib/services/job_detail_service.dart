@@ -15,10 +15,10 @@ class JobDetailService {
     };
   }
 
-  Map<String, String> _publicHeaders() => {
-    "TokenCybersoft": API_TOKEN,
-    "Content-Type": "application/json",
-  };
+  // Map<String, String> _publicHeaders() => {
+  //   "TokenCybersoft": API_TOKEN,
+  //   "Content-Type": "application/json",
+  // };
 
   Future<Map<String, dynamic>?> fetchJobDetail(int maCongViec) async {
     final url = Uri.parse(
@@ -78,9 +78,9 @@ class JobDetailService {
   }) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final userId = prefs.getInt('userId'); // 👈 lấy userId sau khi login
+      final userId = prefs.getInt('userId');
       if (userId == null) {
-        return (ok: false, message: "Bạn cần đăng nhập trước khi bình luận");
+        return (ok: false, message: "You need to log in before commenting.");
       }
 
       final headers = await _authHeaders();
@@ -89,8 +89,7 @@ class JobDetailService {
         "id": 0,
         "maCongViec": maCongViec,
         "maNguoiBinhLuan": userId,
-        "ngayBinhLuan":
-            DateTime.now().toIso8601String(), // 👈 ngày giờ hiện tại
+        "ngayBinhLuan": DateTime.now().toIso8601String(),
         "noiDung": content,
         "saoBinhLuan": saoBinhLuan,
       };
@@ -103,11 +102,11 @@ class JobDetailService {
       );
 
       if (res.statusCode == 200 || res.statusCode == 201) {
-        return (ok: true, message: "Đã thêm bình luận");
+        return (ok: true, message: "Comment added successfully");
       }
       return (ok: false, message: "(${res.statusCode}) ${res.body}");
     } catch (e) {
-      return (ok: false, message: "Lỗi kết nối: $e");
+      return (ok: false, message: "Connection error: $e");
     }
   }
 

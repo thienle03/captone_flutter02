@@ -10,7 +10,7 @@ class SearchField extends StatelessWidget {
   const SearchField({
     super.key,
     required this.controller,
-    this.hintText = "Tìm công việc…",
+    this.hintText = "Search a job.…",
     this.autoFocus = false,
     this.onChanged,
     this.onSubmitted,

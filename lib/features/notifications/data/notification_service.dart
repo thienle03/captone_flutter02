@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppNotification {
-  final String id; // uuid ngắn
-  final String type; // 'order' | 'done' | ...
+  final String id;
+  final String type;
   final String title;
   final String body;
-  final int createdAt; // msSinceEpoch
+  final int createdAt;
   bool read;
 
   AppNotification({
@@ -74,7 +74,7 @@ class NotificationService {
   }) async {
     final prefs = await SharedPreferences.getInstance();
     final now = DateTime.now().millisecondsSinceEpoch;
-    final id = now.toString(); // đủ unique cho demo
+    final id = now.toString();
 
     final n = AppNotification(
       id: id,

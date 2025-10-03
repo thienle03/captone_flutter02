@@ -41,9 +41,9 @@ class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true, // 👈 cho nền lên full màn hình
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent, // 👈 trong suốt để thấy gradient
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
           "Categories",
@@ -76,7 +76,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
         ),
       ),
       body: Container(
-        // ✅ Gradient nền
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -96,12 +95,12 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     ? ListView(
                         children: [
                           const SizedBox(height: 80),
-                          Center(child: Text("Lỗi tải dữ liệu: $_error")),
+                          Center(child: Text("Error loading data: $_error")),
                           const SizedBox(height: 8),
                           Center(
                             child: TextButton(
                               onPressed: _fetchMenu,
-                              child: const Text("Thử lại"),
+                              child: const Text("Try again"),
                             ),
                           ),
                         ],
@@ -112,17 +111,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
                           horizontal: 8,
                         ),
                         itemCount: _menuLoai.length,
-                        separatorBuilder: (_, __) =>
-                            const SizedBox(height: 5), // khoảng cách
+                        separatorBuilder: (_, __) => const SizedBox(height: 5),
                         itemBuilder: (context, i) {
                           final loai =
                               (_menuLoai[i] ?? {}) as Map<String, dynamic>;
 
                           return Container(
                             decoration: BoxDecoration(
-                              color: Colors.white, // 👈 nền trắng cho mỗi item
-                              borderRadius:
-                                  BorderRadius.circular(12), // 👈 bo góc
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.08),
@@ -131,8 +128,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                 ),
                               ],
                               border: Border.all(
-                                  color: Colors.green.shade100,
-                                  width: 1), // 👈 viền
+                                  color: Colors.green.shade100, width: 1),
                             ),
                             child: CategoryListTile(loai: loai, index: i),
                           );

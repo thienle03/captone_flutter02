@@ -12,9 +12,7 @@ class LoginForm extends StatefulWidget {
 }
 
 void hideKeyboard() {
-  // bỏ focus nếu đang focus vào TextField
   FocusManager.instance.primaryFocus?.unfocus();
-  // yêu cầu hệ thống đóng bàn phím (Android/iOS)
   SystemChannels.textInput.invokeMethod('TextInput.hide');
 }
 
@@ -47,7 +45,7 @@ class _LoginFormState extends State<LoginForm> {
         final user = (content is Map) ? (content["user"] ?? content) : null;
         final userId = (user?["id"]) ?? (content?["id"]);
 
-        if (userId == null) throw "Không tìm thấy userId trong response";
+        if (userId == null) throw "UserId not found in the response.";
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setInt("userId", userId);
@@ -55,8 +53,8 @@ class _LoginFormState extends State<LoginForm> {
         await prefs.setString("name", (user?["name"] ?? "").toString());
 
         if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Đăng nhập thành công")));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Login successful")));
         hideKeyboard();
 
         Navigator.pushReplacementNamed(context, '/main');
@@ -65,11 +63,11 @@ class _LoginFormState extends State<LoginForm> {
 
         String message;
         if (response.statusCode == 401) {
-          message = "❌ Sai email hoặc mật khẩu, vui lòng thử lại";
+          message = "❌ Invalid email or password, please try again";
         } else if (response.statusCode == 500) {
-          message = "❌ Máy chủ đang gặp sự cố, vui lòng thử lại sau";
+          message = "❌ Server error, please try again later";
         } else {
-          message = "❌ Đăng nhập thất bại (mã lỗi ${response.statusCode})";
+          message = "❌ Login failed (error code ${response.statusCode})";
         }
 
 // Log chi tiết cho dev
@@ -82,7 +80,7 @@ class _LoginFormState extends State<LoginForm> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Lỗi kết nối: $e")));
+          .showSnackBar(SnackBar(content: Text("Connection error: $e")));
     } finally {
       setState(() => _isLoading = false);
     }
@@ -108,7 +106,7 @@ class _LoginFormState extends State<LoginForm> {
               label: 'Email',
               icon: Icons.mail_outlined,
             ),
-            validator: (v) => (v == null || v.isEmpty) ? 'Nhập email' : null,
+            validator: (v) => (v == null || v.isEmpty) ? 'Input email' : null,
           ),
           const SizedBox(height: 12),
           TextFormField(
@@ -118,7 +116,8 @@ class _LoginFormState extends State<LoginForm> {
               label: 'Password',
               icon: Icons.lock_outline,
             ),
-            validator: (v) => (v == null || v.isEmpty) ? 'Nhập mật khẩu' : null,
+            validator: (v) =>
+                (v == null || v.isEmpty) ? 'Input the password.' : null,
           ),
           const SizedBox(height: 18),
           _isLoading

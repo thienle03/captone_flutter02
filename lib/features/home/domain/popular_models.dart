@@ -8,7 +8,7 @@ class PopularItem {
   final String label;
   final String keyword;
   final String imageUrl;
-  final dynamic jobWrap; // có thể null nếu không tìm thấy
+  final dynamic jobWrap;
 
   const PopularItem({
     required this.label,

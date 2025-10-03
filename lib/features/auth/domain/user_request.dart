@@ -1,7 +1,7 @@
 class UserRequest {
   final int id;
   final String name, email, password, phone, birthday; // yyyy-MM-dd
-  final bool gender; // true = Male
+  final bool gender;
   final String role;
   final List<String> skill, certification;
 
@@ -19,15 +19,15 @@ class UserRequest {
   });
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name.trim(),
-    "email": email.trim(),
-    "password": password.trim(),
-    "phone": phone.trim(),
-    "birthday": birthday.trim(),
-    "gender": gender,
-    "role": role,
-    "skill": skill,
-    "certification": certification,
-  };
+        "id": id,
+        "name": name.trim(),
+        "email": email.trim(),
+        "password": password.trim(),
+        "phone": phone.trim(),
+        "birthday": birthday.trim(),
+        "gender": gender,
+        "role": role,
+        "skill": skill,
+        "certification": certification,
+      };
 }

@@ -52,22 +52,22 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
     if (!mounted) return;
 
     if (ok) {
-      final title = "Thuê công việc thành công";
-      final name = (jobDetail?['tenCongViec'] ?? "Công việc").toString();
+      final title = "Successful job hire";
+      final name = (jobDetail?['tenCongViec'] ?? "job").toString();
       final price = jobDetail?['giaTien'];
-      final body = "Bạn đã thuê: $name${price != null ? " · \$${price}" : ""}";
+      final body =
+          "You have hired: $name${price != null ? " · \$${price}" : ""}";
 
-      // 👉 thêm thông báo
+      // thêm thông báo
       await NotificationService.add(type: "order", title: title, body: body);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("✅ Thuê công việc thành công")),
+        const SnackBar(content: Text("✅ Successful job hire")),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content:
-              Text("❌ Vui lòng đăng nhập trước khi thuê hoặc có lỗi xảy ra"),
+          content: Text("❌ Please log in before hiring or an error occurred"),
         ),
       );
     }
@@ -102,7 +102,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                 const SizedBox(height: 12),
                 Expanded(
                   child: comments.isEmpty
-                      ? const Center(child: Text("Chưa có bình luận"))
+                      ? const Center(child: Text("No comments yet"))
                       : ListView.separated(
                           itemCount: comments.length,
                           separatorBuilder: (_, __) =>
@@ -121,7 +121,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                                 ),
                                 title: Text(
                                   c['tenNguoiBinhLuan']?.toString() ??
-                                      "Ẩn danh",
+                                      "Anonymous",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -154,7 +154,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                         minLines: 1,
                         maxLines: 4,
                         decoration: const InputDecoration(
-                          hintText: "Viết bình luận...",
+                          hintText: "Write a comment...",
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -167,8 +167,6 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                       onPressed: () async {
                         final text = ctl.text.trim();
                         if (text.isEmpty) return;
-
-                        // ✅ SỬA: dùng result thay vì ok, và đọc result.ok/result.message
                         final result = await repo.addComment(
                           maCongViec: widget.maCongViec,
                           content: text,
@@ -186,7 +184,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                "❌ Lỗi khi thêm bình luận: ${result.message}",
+                                "❌ Error adding comment: ${result.message}",
                               ),
                             ),
                           );
@@ -222,7 +220,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
       ).showSnackBar(SnackBar(content: Text("✅ ${result.message}")));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("❌ Thêm bình luận thất bại: ${result.message}")),
+        SnackBar(content: Text("❌ Error adding comment: ${result.message}")),
       );
     }
   }
@@ -231,14 +229,13 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Chi tiết công việc"),
+        title: const Text("Job Details"),
         centerTitle: true,
         elevation: 0,
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Container(
-              // ✅ Gradient giống login/signup
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -272,7 +269,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    // Avatar + creator name + rating
+                    // Avatar
                     Row(
                       children: [
                         CircleAvatar(
@@ -340,7 +337,7 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                             minLines: 1,
                             maxLines: 3,
                             decoration: InputDecoration(
-                              hintText: "Viết bình luận...",
+                              hintText: "Write a comment...",
                               filled: true,
                               fillColor: Colors.white,
                               border: OutlineInputBorder(

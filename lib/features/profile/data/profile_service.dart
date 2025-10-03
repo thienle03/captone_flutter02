@@ -39,7 +39,7 @@ class ProfileRepository {
     return ProfileService.fetchSkills();
   }
 
-  /// Update user rồi fetch lại (tiện cho UI)
+  /// Update user rồi fetch lại
   Future<Map<String, dynamic>?> updateAndGetUser(
     int uid,
     Map<String, dynamic> patch,

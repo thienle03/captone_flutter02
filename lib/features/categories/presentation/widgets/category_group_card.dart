@@ -31,16 +31,14 @@ class CategoryGroupCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Thumbnail
             AspectRatio(
               aspectRatio: 16 / 9,
-              child:
-                  img.isEmpty
-                      ? Container(
-                        color: const Color(0xFFEFEFEF),
-                        child: const Icon(Icons.image_not_supported),
-                      )
-                      : Image.network(img, fit: BoxFit.cover),
+              child: img.isEmpty
+                  ? Container(
+                      color: const Color(0xFFEFEFEF),
+                      child: const Icon(Icons.image_not_supported),
+                    )
+                  : Image.network(img, fit: BoxFit.cover),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
@@ -58,23 +56,22 @@ class CategoryGroupCard extends StatelessWidget {
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
-                      children:
-                          dsCT.map((ct) {
-                            final name = (ct?["tenChiTiet"] ?? "").toString();
-                            if (name.isEmpty) return const SizedBox();
-                            return ActionChip(
-                              label: Text(name),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder:
-                                        (_) => SearchPage(initialKeyword: name),
-                                  ),
-                                );
-                              },
+                      children: dsCT.map((ct) {
+                        final name = (ct?["tenChiTiet"] ?? "").toString();
+                        if (name.isEmpty) return const SizedBox();
+                        return ActionChip(
+                          label: Text(name),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    SearchPage(initialKeyword: name),
+                              ),
                             );
-                          }).toList(),
+                          },
+                        );
+                      }).toList(),
                     )
                   else
                     const Text(

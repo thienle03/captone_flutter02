@@ -29,7 +29,7 @@ class _EditSkillsSheetState extends State<EditSkillsSheet> {
   @override
   Widget build(BuildContext context) {
     final keyword = searchCtl.text.trim().toLowerCase();
-    // ✅ nếu keyword rỗng -> hiện tất cả; có chữ -> lọc
+
     final filtered = keyword.isEmpty
         ? widget.allSkills
         : widget.allSkills
@@ -46,13 +46,13 @@ class _EditSkillsSheetState extends State<EditSkillsSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text("Chọn kỹ năng",
+          const Text("Choose a skill.",
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
           const SizedBox(height: 12),
           TextField(
             controller: searchCtl,
             decoration: const InputDecoration(
-              hintText: "Tìm skill...",
+              hintText: "Search skills...",
               prefixIcon: Icon(Icons.search),
               border: OutlineInputBorder(),
             ),
@@ -92,7 +92,7 @@ class _EditSkillsSheetState extends State<EditSkillsSheet> {
             children: [
               TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text("Hủy")),
+                  child: const Text("Cancel")),
               const Spacer(),
               ElevatedButton.icon(
                 onPressed: () async {
@@ -100,7 +100,7 @@ class _EditSkillsSheetState extends State<EditSkillsSheet> {
                   if (ok && context.mounted) Navigator.pop(context);
                 },
                 icon: const Icon(Icons.save),
-                label: const Text("Lưu"),
+                label: const Text("Save"),
               ),
             ],
           ),

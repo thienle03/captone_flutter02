@@ -44,8 +44,7 @@ class _EditDescriptionSheetState extends State<EditDescriptionSheet> {
       ),
       child: SingleChildScrollView(
         child: Column(
-          mainAxisSize:
-              MainAxisSize.min, // 👈 quan trọng để modal co theo nội dung
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
               "Edit Description",

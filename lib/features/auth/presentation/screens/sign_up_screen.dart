@@ -10,9 +10,8 @@ class SignUpScreen extends StatelessWidget {
     final bottomPad = MediaQuery.of(context).padding.bottom;
 
     return Scaffold(
-      appBar: null, // để đồng bộ style với Login
+      appBar: null,
       body: Container(
-        // ✅ Gradient phủ full screen (giống Login)
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -30,7 +29,6 @@ class SignUpScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Logo tròn
                 Container(
                   height: 88,
                   width: 88,
@@ -62,9 +60,8 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
 
-                // Thẻ glass bọc form
                 _GlassCard(
-                  child: const SignUpForm(), // chỉ chứa form + logic
+                  child: const SignUpForm(), // Form đăng ký
                 ),
               ],
             ),
